@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import styled from "@emotion/styled";
 import SortingProducts from "../../components/SortingProducts";
 import Pagination from "../../components/Pagination";
+import Products from "../../components/Products";
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
           <Fab
             size="medium"
             aria-label="add"
-            sx={{ color: "primary.turquoise" }}
+            sx={{ color: "primary.turquoise", zIndex: "0" }}
           >
             <AddIcon />
           </Fab>
@@ -26,6 +27,7 @@ export default function Home() {
         </AddProductWrapper>
         <SortingProducts />
         <Pagination />
+        <Products />
       </Container>
     </>
   );
