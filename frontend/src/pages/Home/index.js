@@ -4,7 +4,6 @@ import AddIcon from "@mui/icons-material/Add";
 import Header from "../../components/Header";
 import styled from "@emotion/styled";
 import SortingProducts from "../../components/SortingProducts";
-import Pagination from "../../components/Pagination";
 
 export default function Home() {
   return (
@@ -25,7 +24,6 @@ export default function Home() {
           </Typography>
         </AddProductWrapper>
         <SortingProducts />
-        <Pagination />
       </Container>
     </>
   );

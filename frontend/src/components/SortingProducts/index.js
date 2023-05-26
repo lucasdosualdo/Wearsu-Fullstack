@@ -59,11 +59,7 @@ export default function SortingProducts() {
           <Box sx={{ minWidth: 200, maxWidth: 200 }}>
             <FormControl
               fullWidth
-              sx={{
-                borderBottomColor: "white",
-                color: "white",
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-              }}
+              sx={{ borderBottomColor: "white", color: "white" }}
             >
               <InputLabel id="demo-simple-select-label">
                 Organizar por
@@ -85,6 +81,7 @@ export default function SortingProducts() {
             </FormControl>
           </Box>
         </ThemeProvider>
+        
       </Container>
     </>
   );
