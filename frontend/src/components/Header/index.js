@@ -4,6 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { HeaderBar, Search, SearchIconWrapper, StyledInputBase } from "./style";
 
+
+
 export default function Header() {
   return (
     <HeaderBar>
