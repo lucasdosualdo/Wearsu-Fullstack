@@ -34,7 +34,6 @@ export const ImageWrapper = styled("div")({
 export const DetailsWrapper = styled("div")({
   position: "relative",
   width: "60%",
-  //height: "100%",
   padding: "15px",
   overflowY: "auto",
   overflowX: "hidden",

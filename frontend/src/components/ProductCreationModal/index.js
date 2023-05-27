@@ -43,7 +43,6 @@ function BootstrapDialogTitle({ children, onClose, ...other }) {
 }
 
 export default function ProductCreationModal() {
-
   const { openCreation, setOpenCreation } = useModal();
 
   const handleClose = () => {
@@ -60,7 +59,7 @@ export default function ProductCreationModal() {
         onClose={handleClose}
         sx={{ textTransform: "uppercase" }}
       >
-        Adicionar produto
+        Produto
       </BootstrapDialogTitle>
 
       <DialogContent dividers>
