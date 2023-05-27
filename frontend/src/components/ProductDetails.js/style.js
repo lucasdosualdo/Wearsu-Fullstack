@@ -32,10 +32,23 @@ export const ImageWrapper = styled("div")({
 });
 
 export const DetailsWrapper = styled("div")({
+  position: "relative",
   width: "60%",
-  height: "100%",
+  //height: "100%",
   padding: "15px",
   overflowY: "auto",
   overflowX: "hidden",
   wordWrap: "break-word",
+});
+
+export const IconsWrapper = styled("span")({
+  position: "absolute",
+  top: "15px",
+  right: "20px",
+});
+
+export const PriceWrapper = styled("div")({
+  position: "absolute",
+  bottom: "15px",
+  right: "20px",
 });
