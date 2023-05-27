@@ -1,15 +1,15 @@
 import * as React from "react";
-import { useState } from "react";
 import { Fab, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { AddProductWrapper } from "./style";
 import ProductCreationModal from "../ProductCreationModal";
+import { useModal } from "../../contexts/ModalsContext";
 
 export default function AddProduct() {
-  const [open, setOpen] = useState(false);
+  const { setOpenCreation } = useModal();
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpenCreation(true);
   };
 
   return (
@@ -26,7 +26,7 @@ export default function AddProduct() {
       <Typography variant="subtitle1" sx={{ color: "primary.white" }}>
         Adicionar produto
       </Typography>
-      <ProductCreationModal open={open} setOpen={setOpen} />
+      <ProductCreationModal />
     </AddProductWrapper>
   );
 }

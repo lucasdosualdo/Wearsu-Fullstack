@@ -15,6 +15,7 @@ export const ProductWrapper = styled("div")({
   position: "relative",
   borderRadius: "5px",
   overflow: "hidden",
+  cursor: "pointer",
 });
 
 export const ImageWrapper = styled("div")({

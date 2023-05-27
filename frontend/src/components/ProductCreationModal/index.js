@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -9,6 +8,8 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ProductForm from "../ProductForm";
+
+import { useModal } from "../../contexts/ModalsContext";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -41,15 +42,18 @@ function BootstrapDialogTitle({ children, onClose, ...other }) {
   );
 }
 
-export default function ProductCreationModal({ open, setOpen }) {
+export default function ProductCreationModal() {
+
+  const { openCreation, setOpenCreation } = useModal();
+
   const handleClose = () => {
-    setOpen(false);
+    setOpenCreation(false);
   };
   return (
     <BootstrapDialog
       onClose={handleClose}
       aria-labelledby="customized-dialog-title"
-      open={open}
+      open={openCreation}
     >
       <BootstrapDialogTitle
         id="customized-dialog-title"

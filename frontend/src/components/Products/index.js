@@ -1,11 +1,18 @@
+import * as React from "react";
+import { useState } from "react";
 import { Container, ProductWrapper, ImageWrapper, PriceWrapper } from "./style";
 import { Typography } from "@mui/material";
 import tshirtImage from "../../assets/images/tshirt.png";
+import ProductDetails from "../ProductDetails.js";
 
 export default function Products() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <Container>
-      <ProductWrapper>
+      <ProductWrapper onClick={handleOpen}>
         <ImageWrapper>
           <img src={tshirtImage} alt="product" />
         </ImageWrapper>
@@ -35,14 +42,7 @@ export default function Products() {
         </Typography>
         <PriceWrapper>R$ 50,00</PriceWrapper>
       </ProductWrapper>
-      <ProductWrapper></ProductWrapper>
-      <ProductWrapper></ProductWrapper>
-      <ProductWrapper></ProductWrapper>
-      <ProductWrapper></ProductWrapper>
-      <ProductWrapper></ProductWrapper>
-      <ProductWrapper></ProductWrapper>
-      <ProductWrapper></ProductWrapper>
-      <ProductWrapper></ProductWrapper>
+      <ProductDetails open={open} handleClose={handleClose} />
     </Container>
   );
 }
