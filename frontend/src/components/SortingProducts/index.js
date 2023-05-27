@@ -51,7 +51,7 @@ export default function SortingProducts() {
             variant="subtitle1"
             sx={{ color: "primary.white", cursor: "pointer" }}
           >
-            Casacos 
+            Casacos
           </Typography>
         </ProductsFilter>
 
@@ -75,12 +75,12 @@ export default function SortingProducts() {
                 label="Organizar por"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>Nome (A-Z)</MenuItem>
-                <MenuItem value={20}>Nome (Z-A)</MenuItem>
-                <MenuItem value={30}>Mais recentes</MenuItem>
-                <MenuItem value={40}>Mais antigos</MenuItem>
-                <MenuItem value={50}>Preço (mais baratos)</MenuItem>
-                <MenuItem value={60}>Preço (mais caros)</MenuItem>
+                <MenuItem value={"Nome (A-Z)"}>Nome (A-Z)</MenuItem>
+                <MenuItem value={"Nome (Z-A)"}>Nome (Z-A)</MenuItem>
+                <MenuItem value={"Mais recentes"}>Mais recentes</MenuItem>
+                <MenuItem value={"Mais antigos"}>Mais antigos</MenuItem>
+                <MenuItem value={"Preço (mais baratos)"}>Preço (mais baratos)</MenuItem>
+                <MenuItem value={"Preço (mais caros)"}>Preço (mais caros)</MenuItem>
               </Select>
             </FormControl>
           </Box>
