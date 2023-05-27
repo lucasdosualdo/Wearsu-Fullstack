@@ -2,7 +2,7 @@ import { CreateProductParams } from "@/protocols";
 
 import Joi from "joi";
 
-export const createUserSchema = Joi.object<CreateProductParams>({
+export const createProductSchema = Joi.object<CreateProductParams>({
   name: Joi.string().required(),
   description: Joi.string().required(),
   price: Joi.number().precision(2).required(),
