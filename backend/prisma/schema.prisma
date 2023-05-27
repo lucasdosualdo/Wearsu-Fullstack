@@ -34,6 +34,7 @@ model sessions {
 model users {
   id       Int        @id @default(autoincrement())
   name     String     @db.VarChar(100)
+  email    String     @unique @db.VarChar(150)
   password String     @unique @db.VarChar(255)
   products products[]
   sessions sessions[]
