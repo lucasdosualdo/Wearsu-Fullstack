@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import cors from "cors";
-import { productsRouter } from "./routers";
+import { productsRouter } from "@/routers";
 
 const app = express();
 app
