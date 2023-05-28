@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import { CreateProductParams } from "@/protocols";
+import { CreateProductParams, InputProductParams } from "@/protocols";
 import productsService from "@/services/products-service";
 
 export async function postProduct(req: Request, res: Response) {
-  const productData: CreateProductParams = req.body;
+  const productBody: InputProductParams = req.body;
 
   try {
     const product: CreateProductParams = await productsService.createProduct(
-      productData
+      productBody
     );
 
     return res.status(httpStatus.CREATED).send(product);

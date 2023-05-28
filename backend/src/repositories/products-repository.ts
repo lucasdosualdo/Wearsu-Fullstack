@@ -8,8 +8,17 @@ async function create(data: CreateProductParams): Promise<products> {
   });
 }
 
+async function checkReference(reference: string): Promise<products | null> {
+  return prisma.products.findFirst({
+    where: {
+      reference,
+    },
+  });
+}
+
 const productsRepository = {
   create,
+  checkReference
 };
 
 export default productsRepository;

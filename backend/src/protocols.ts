@@ -9,6 +9,7 @@ export type SignInParams = Pick<users, "email" | "password">;
 
 export type SignUpParams = Pick<users, "name" | "email" | "password">;
 
+export type InputProductParams = Omit<products, "id" | "reference">;
 export type CreateProductParams = Omit<products, "id">;
 export type CreatedUser = Omit<users, "id" | "password">;
 
