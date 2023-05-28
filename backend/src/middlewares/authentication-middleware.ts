@@ -21,6 +21,7 @@ export async function authenticateToken(
     const session = await prisma.sessions.findFirst({
       where: {
         token,
+        valid: true,
       },
     });
     if (!session) return generateUnauthorizedResponse(res);

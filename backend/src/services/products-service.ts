@@ -1,3 +1,4 @@
+import { badRequestError } from "@/errors/bad-request-error";
 import { CreateProductParams, InputProductParams } from "@/protocols";
 import productsRepository from "@/repositories/products-repository";
 import { products } from "@prisma/client";
@@ -33,8 +34,17 @@ async function generateCustomReference(length: number): Promise<string> {
   return reference;
 }
 
+async function getProducts(userId: number): Promise<products[]> {
+  if (!userId) {
+    throw badRequestError();
+  }
+  const products: products[] = await productsRepository.getAll(userId);
+  return products;
+}
+
 const productsService = {
   createProduct,
+  getProducts,
 };
 
 export default productsService;

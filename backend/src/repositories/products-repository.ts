@@ -1,4 +1,4 @@
-import { products, Prisma } from "@prisma/client";
+import { products } from "@prisma/client";
 import prisma from "@/config/database";
 import { CreateProductParams } from "@/protocols";
 
@@ -16,9 +16,18 @@ async function checkReference(reference: string): Promise<products | null> {
   });
 }
 
+async function getAll(userId: number): Promise<products[]> {
+  return prisma.products.findMany({
+    where: {
+      user_id: userId,
+    },
+  });
+}
+
 const productsRepository = {
   create,
-  checkReference
+  checkReference,
+  getAll,
 };
 
 export default productsRepository;
