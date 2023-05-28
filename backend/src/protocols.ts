@@ -11,3 +11,10 @@ export type SignUpParams = Pick<users, "name" | "email" | "password">;
 
 export type CreateProductParams = Omit<products, "id">;
 export type CreatedUser = Omit<users, "id" | "password">;
+
+export type UserSessionParams = {
+  userId: number;
+  name: string;
+  email: string;
+  token: string;
+};

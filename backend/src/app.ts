@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import cors from "cors";
-import { productsRouter, signUpRouter } from "@/routers";
+import { productsRouter, signUpRouter, signInRouter } from "@/routers";
 
 const app = express();
 app
@@ -8,7 +8,8 @@ app
   .use(express.json())
   .get("/health", (_req, res) => res.send("OK"))
   .use("/products", productsRouter)
-  .use("/signup", signUpRouter);
+  .use("/signup", signUpRouter)
+  .use("/signin", signInRouter);
 
 export function init(): Promise<Express> {
   return Promise.resolve(app);
