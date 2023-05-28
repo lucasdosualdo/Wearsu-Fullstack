@@ -6,7 +6,7 @@ async function createProduct(
 ): Promise<CreateProductParams> {
   try {
     const { id, ...product } = await productsRepository.create(data);
-    return product as CreateProductParams;
+    return product;
   } catch (error) {
     throw new Error("Erro ao criar o produto: " + error.message);
   }
