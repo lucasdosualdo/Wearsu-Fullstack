@@ -19,6 +19,7 @@ export function ProductProvider({ children }) {
       setProductInfo,
       reset: () => {
         setProductInfo({
+          id: "",
           name: "",
           price: "",
           imageURL: "",

@@ -5,12 +5,14 @@ import { AddProductWrapper } from "./style";
 import ProductCreationModal from "../ProductCreationModal";
 import { useModal } from "../../contexts/ModalsContext";
 import { useProduct } from "../../contexts/ProductContext";
+import { useState } from "react";
 
 export default function AddProduct() {
   const { setOpenCreation } = useModal();
   const { reset } = useProduct();
-
+  const [creation, setCreation] = useState(false);
   const handleClickOpen = () => {
+    setCreation(true);
     reset();
     setOpenCreation(true);
   };
@@ -29,7 +31,7 @@ export default function AddProduct() {
       <Typography variant="subtitle1" sx={{ color: "primary.white" }}>
         Adicionar produto
       </Typography>
-      <ProductCreationModal />
+      <ProductCreationModal creation={creation} setCreation={setCreation} />
     </AddProductWrapper>
   );
 }

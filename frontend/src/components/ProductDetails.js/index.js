@@ -11,12 +11,27 @@ import {
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useModal } from "../../contexts/ModalsContext";
+import { useProduct } from "../../contexts/ProductContext";
 
 export default function ProductDetails({ open, handleClose, product }) {
   const { setOpenCreation } = useModal();
+  const { productInfo, setProductInfo } = useProduct();
+  let formatedPrice = Number(product?.price).toFixed(2);
+  formatedPrice = formatedPrice.replace(".", ",");
 
   const handleEditClick = () => {
     handleClose();
+    console.log(product);
+    setProductInfo({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      imageURL: product.image_url,
+      description: product.description,
+      quantity: product.quantity,
+      model: product.model,
+      brand: product.brand,
+    });
     setOpenCreation(true);
   };
 
@@ -67,7 +82,7 @@ export default function ProductDetails({ open, handleClose, product }) {
             />
           </IconsWrapper>
           <PriceWrapper>
-            <Typography variant="h5">{`R$ ${product?.price}`}</Typography>
+            <Typography variant="h5">{`R$ ${formatedPrice}`}</Typography>
           </PriceWrapper>
         </DetailsWrapper>
       </StyledModal>

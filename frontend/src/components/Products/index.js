@@ -25,7 +25,7 @@ export default function Products() {
         products.map((product) => {
           let formatedPrice = Number(product.price).toFixed(2);
           formatedPrice = formatedPrice.replace(".", ",");
-          product = { ...product, price: formatedPrice };
+         
 
           return (
             <>

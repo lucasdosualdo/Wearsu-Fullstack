@@ -22,7 +22,7 @@ export default function ProductTypes() {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={productInfo.model}
-          label="Selecione o tipo"
+          label="Selecione o modelo"
           name="model"
           onChange={handleInputChange}
         >

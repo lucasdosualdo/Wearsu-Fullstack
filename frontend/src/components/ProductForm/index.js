@@ -6,7 +6,7 @@ import ProductTypes from "../SelectionsProductsInputs/ProductTypes";
 import { useProduct } from "../../contexts/ProductContext";
 
 export default function ProductForm() {
-  const { setProductInfo } = useProduct();
+  const { productInfo, setProductInfo } = useProduct();
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setProductInfo((prev) => ({
@@ -23,6 +23,7 @@ export default function ProductForm() {
         id="fullWidth"
         margin="normal"
         name="name"
+        value={productInfo.name}
         onChange={handleInputChange}
       />
       <TextField
@@ -31,6 +32,7 @@ export default function ProductForm() {
         id="fullWidth"
         margin="normal"
         name="price"
+        value={productInfo.price}
         onChange={handleInputChange}
       />
       <TextField
@@ -39,6 +41,7 @@ export default function ProductForm() {
         id="fullWidth"
         margin="normal"
         name="brand"
+        value={productInfo.brand}
         onChange={handleInputChange}
       />
       <TextField
@@ -47,6 +50,7 @@ export default function ProductForm() {
         id="fullWidth"
         margin="normal"
         name="imageURL"
+        value={productInfo.imageURL}
         onChange={handleInputChange}
       />
       <TextField
@@ -56,6 +60,7 @@ export default function ProductForm() {
         margin="normal"
         multiline
         name="description"
+        value={productInfo.description}
         onChange={handleInputChange}
       />
       <ProductQuantity />

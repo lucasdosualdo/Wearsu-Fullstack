@@ -16,6 +16,7 @@ import { Slide, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { useProducts } from "../../contexts/ProductsContext";
+import { updateProduct } from "../../services/updateProductApi";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -48,13 +49,15 @@ function BootstrapDialogTitle({ children, onClose, ...other }) {
   );
 }
 
-export default function ProductCreationModal() {
+export default function ProductCreationModal({ creation, setCreation }) {
   const [loading, setLoading] = useState(false);
   const { openCreation, setOpenCreation } = useModal();
   const { user } = useAuth();
   const { productInfo, reset } = useProduct();
   const { productsCount, setProductsCount } = useProducts();
+
   const handleClose = () => {
+    setCreation(false);
     reset();
     setOpenCreation(false);
   };
@@ -72,21 +75,21 @@ export default function ProductCreationModal() {
       image_url: productInfo.imageURL,
       user_id: user.id,
     };
-
+    const productId = productInfo.id;
     try {
-      await createProduct(body, user.token);
+      if (creation) {
+        await createProduct(body, user.token);
+        setCreation(false);
+      } else {
+        await updateProduct(productId, body, user.token);
+      }
+      setProductsCount(productsCount + 1);
       setLoading(false);
       setOpenCreation(false);
-      setProductsCount(productsCount + 1);
-      toast.error("Produto criado com sucesso.", {
-        progressStyle: {
-          backgroundColor: "var(--turquoise)",
-        },
-      });
     } catch (error) {
       setLoading(false);
       console.log(error.message);
-      toast.error("Falha ao criar o produto.", {
+      toast.error("Falha ao adicionar o produto.", {
         progressStyle: {
           backgroundColor: "var(--turquoise)",
         },
