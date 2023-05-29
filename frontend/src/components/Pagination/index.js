@@ -10,7 +10,6 @@ import { useProducts } from "../../contexts/ProductsContext";
 export default function BasicPagination() {
   const { pageSize, pagination, setPagination } = usePagination();
   const { token } = useAuth();
-  console.log(token, pagination);
   const { setProducts } = useProducts();
 
   useEffect(() => {
