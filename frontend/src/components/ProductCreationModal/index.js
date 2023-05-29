@@ -15,6 +15,7 @@ import { createProduct } from "../../services/createProductApi";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
+import { useProducts } from "../../contexts/ProductsContext";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -52,7 +53,7 @@ export default function ProductCreationModal() {
   const { openCreation, setOpenCreation } = useModal();
   const { user } = useAuth();
   const { productInfo, reset } = useProduct();
-
+  const { productsCount, setProductsCount } = useProducts();
   const handleClose = () => {
     reset();
     setOpenCreation(false);
@@ -76,6 +77,7 @@ export default function ProductCreationModal() {
       await createProduct(body, user.token);
       setLoading(false);
       setOpenCreation(false);
+      setProductsCount(productsCount + 1);
       toast.error("Produto criado com sucesso.", {
         progressStyle: {
           backgroundColor: "var(--turquoise)",

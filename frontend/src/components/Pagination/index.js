@@ -10,7 +10,8 @@ import { useProducts } from "../../contexts/ProductsContext";
 export default function BasicPagination() {
   const { pageSize, pagination, setPagination } = usePagination();
   const { token } = useAuth();
-  const { setProducts } = useProducts();
+  const { products, setProducts, productsCount, setProductsCount } =
+    useProducts();
 
   useEffect(() => {
     async function fetchProducts() {
@@ -18,13 +19,16 @@ export default function BasicPagination() {
         const promise = await getProducts(token, pagination);
         setPagination({ ...pagination, count: promise.totalProducts });
         setProducts(promise.products);
+        if (productsCount !== promise.totalProducts) {
+          setProductsCount(promise.totalProducts);
+        }
       } catch (error) {
         console.error(error.message);
       }
     }
 
     fetchProducts();
-  }, [pagination.from, pagination.to, token]);
+  }, [pagination.from, pagination.to, token, productsCount]);
 
   function handlePageChange(event, page) {
     const from = (page - 1) * pageSize;

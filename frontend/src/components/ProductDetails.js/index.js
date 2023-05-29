@@ -29,31 +29,31 @@ export default function ProductDetails({ open, handleClose, product }) {
     >
       <StyledModal>
         <ImageWrapper>
-          <img src={product.image_url} alt="product" />
+          <img src={product?.image_url} alt="product" />
         </ImageWrapper>
 
         <DetailsWrapper>
           <Typography variant="h4" sx={{ textTransform: "uppercase" }}>
-            {product.name}
+            {product?.name}
           </Typography>
           <Typography
             variant="h6"
             gutterBottom
             sx={{ textTransform: "uppercase" }}
           >
-            {product.brand}
+            {product?.brand}
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
-            {product.description}
+            {product?.description}
           </Typography>
           <Typography variant="h6" gutterBottom>
-            {`Unidades: ${product.quantity}`}
+            {`Unidades: ${product?.quantity}`}
           </Typography>
           <Typography variant="h6" gutterBottom>
-            {`Modelo: ${product.model}`}
+            {`Modelo: ${product?.model}`}
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
-            {`Código: ${product.reference}`}
+            {`Código: ${product?.reference}`}
           </Typography>
           <IconsWrapper>
             <EditOutlinedIcon
@@ -67,7 +67,7 @@ export default function ProductDetails({ open, handleClose, product }) {
             />
           </IconsWrapper>
           <PriceWrapper>
-            <Typography variant="h5">{`R$ ${product.price}`}</Typography>
+            <Typography variant="h5">{`R$ ${product?.price}`}</Typography>
           </PriceWrapper>
         </DetailsWrapper>
       </StyledModal>

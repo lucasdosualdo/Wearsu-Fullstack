@@ -4,16 +4,19 @@ const ProductsContext = createContext();
 
 export function ProductsProvider({ children }) {
   const [products, setProducts] = useState([]);
-
+  const [productsCount, setProductsCount] = useState(0);
   const contextValue = useMemo(
     () => ({
       products,
       setProducts,
+      productsCount,
+      setProductsCount,
       resetProducts: () => {
         setProducts([]);
+        setProductsCount(0);
       },
     }),
-    [products]
+    [products, productsCount]
   );
 
   return (
