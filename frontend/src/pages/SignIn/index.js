@@ -12,21 +12,47 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import logo from "../../assets/images/logo.svg";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { postSignIn } from "../../services/signInApi";
+import { Slide, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
+    setLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const body = {
       email: data.get("email"),
       password: data.get("password"),
-    });
-  };
+    };
+    try {
+      const promise = await postSignIn(body);
+      const user = {
+        name: promise.data.name,
+        email: promise.data.email,
+        id: promise.data.userId,
+        token: promise.data.token,
+      };
+      login(user);
+      setLoading(false);
+      navigate("/");
+    } catch (error) {
+      toast.error("Falha ao realizar o login.", {
+        progressStyle: {
+          backgroundColor: "var(--turquoise)",
+        },
+      });
+      setLoading(false);
+    }
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -52,7 +78,7 @@ export default function SignIn() {
             },
           }}
         >
-          <img src={logo} alt="logo" onClick={() => navigate("/")}/>
+          <img src={logo} alt="logo" onClick={() => navigate("/")} />
         </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
@@ -85,6 +111,7 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                disabled={loading}
               />
               <TextField
                 margin="normal"
@@ -95,9 +122,11 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                disabled={loading}
               />
 
               <Button
+                disabled={loading}
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -106,7 +135,7 @@ export default function SignIn() {
                   mb: 2,
                   backgroundColor: "var(--turquoise)",
                   "&:hover": {
-                    backgroundColor: "var(--turquoise)", // Substitua "var(--desired-color)" pela cor desejada
+                    backgroundColor: "var(--turquoise)",
                   },
                 }}
               >
@@ -124,6 +153,12 @@ export default function SignIn() {
           </Box>
         </Grid>
       </Grid>
+      <ToastContainer
+        transition={Slide}
+        autoClose={1500}
+        bodyClassName="toast-body"
+        icon={false}
+      />
     </ThemeProvider>
   );
 }
