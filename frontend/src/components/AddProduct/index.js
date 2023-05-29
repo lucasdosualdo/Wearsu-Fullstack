@@ -4,11 +4,14 @@ import AddIcon from "@mui/icons-material/Add";
 import { AddProductWrapper } from "./style";
 import ProductCreationModal from "../ProductCreationModal";
 import { useModal } from "../../contexts/ModalsContext";
+import { useProduct } from "../../contexts/ProductContext";
 
 export default function AddProduct() {
   const { setOpenCreation } = useModal();
+  const { reset } = useProduct();
 
   const handleClickOpen = () => {
+    reset();
     setOpenCreation(true);
   };
 

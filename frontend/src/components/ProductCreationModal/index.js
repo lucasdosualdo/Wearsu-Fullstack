@@ -8,8 +8,13 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ProductForm from "../ProductForm";
-
 import { useModal } from "../../contexts/ModalsContext";
+import { useProduct } from "../../contexts/ProductContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { createProduct } from "../../services/createProductApi";
+import { Slide, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -43,11 +48,50 @@ function BootstrapDialogTitle({ children, onClose, ...other }) {
 }
 
 export default function ProductCreationModal() {
+  const [loading, setLoading] = useState(false);
   const { openCreation, setOpenCreation } = useModal();
+  const { user } = useAuth();
+  const { productInfo, reset } = useProduct();
 
   const handleClose = () => {
+    reset();
     setOpenCreation(false);
   };
+
+  async function handleSubmit(event) {
+    setLoading(true);
+    event.preventDefault();
+    const body = {
+      name: productInfo.name,
+      description: productInfo.description,
+      price: productInfo.price,
+      quantity: productInfo.quantity,
+      model: productInfo.model,
+      brand: productInfo.brand,
+      image_url: productInfo.imageURL,
+      user_id: user.id,
+    };
+
+    try {
+      await createProduct(body, user.token);
+      setLoading(false);
+      setOpenCreation(false);
+      toast.error("Produto criado com sucesso.", {
+        progressStyle: {
+          backgroundColor: "var(--turquoise)",
+        },
+      });
+    } catch (error) {
+      setLoading(false);
+      console.log(error.message);
+      toast.error("Falha ao criar o produto.", {
+        progressStyle: {
+          backgroundColor: "var(--turquoise)",
+        },
+      });
+    }
+  }
+
   return (
     <BootstrapDialog
       onClose={handleClose}
@@ -70,10 +114,16 @@ export default function ProductCreationModal() {
         <Button autoFocus onClick={handleClose}>
           Cancelar
         </Button>
-        <Button autoFocus onClick={handleClose}>
+        <Button autoFocus onClick={handleSubmit}>
           Salvar
         </Button>
       </DialogActions>
+      <ToastContainer
+        transition={Slide}
+        autoClose={1500}
+        bodyClassName="toast-body"
+        icon={false}
+      />
     </BootstrapDialog>
   );
 }
