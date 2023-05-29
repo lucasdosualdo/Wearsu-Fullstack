@@ -19,6 +19,27 @@ export async function postProduct(req: AuthenticatedRequest, res: Response) {
 
     return res.status(httpStatus.CREATED).send(product);
   } catch (error) {
+    if (error.name === "BadRequestError") {
+      return res.status(httpStatus.BAD_REQUEST).send(error);
+    }
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
+  }
+}
+
+export async function updateProduct(req: AuthenticatedRequest, res: Response) {
+  const productBody: InputProductParams = req.body;
+  const productId: number = Number(req.params.productId);
+  try {
+    const product: CreateProductParams = await productsService.updateProduct(
+      productBody,
+      productId
+    );
+
+    return res.status(httpStatus.CREATED).send(product);
+  } catch (error) {
+    if (error.name === "BadRequestError") {
+      return res.status(httpStatus.BAD_REQUEST).send(error);
+    }
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
   }
 }

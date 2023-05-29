@@ -7,6 +7,14 @@ async function create(data: CreateProductParams): Promise<products> {
     data,
   });
 }
+async function update(data: CreateProductParams, productId: number) {
+  return prisma.products.update({
+    where: {
+      id: productId,
+    },
+    data,
+  });
+}
 
 async function checkReference(reference: string): Promise<products | null> {
   return prisma.products.findFirst({
@@ -56,6 +64,7 @@ const productsRepository = {
   count,
   getByModel,
   countByModel,
+  update,
 };
 
 export default productsRepository;

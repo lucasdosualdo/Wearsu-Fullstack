@@ -24,6 +24,26 @@ async function createProduct(
   }
 }
 
+async function updateProduct(
+  data: InputProductParams,
+  productId: number
+): Promise<CreateProductParams> {
+  try {
+    if (!productId) {
+      throw badRequestError();
+    }
+    const reference: string = await generateRandomReference(10);
+    const productBody: CreateProductParams = { ...data, reference };
+    const { id, ...product } = await productsRepository.update(
+      productBody,
+      productId
+    );
+    return product;
+  } catch (error) {
+    throw new Error("Error on product creation: " + error.message);
+  }
+}
+
 async function generateRandomReference(length: number): Promise<string> {
   const characters: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let reference: string = "";
@@ -80,6 +100,7 @@ const productsService = {
   createProduct,
   getProducts,
   getProductsByModel,
+  updateProduct,
 };
 
 export default productsService;
