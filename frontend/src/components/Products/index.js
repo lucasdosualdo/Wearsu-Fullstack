@@ -2,47 +2,71 @@ import * as React from "react";
 import { useState } from "react";
 import { Container, ProductWrapper, ImageWrapper, PriceWrapper } from "./style";
 import { Typography } from "@mui/material";
-import tshirtImage from "../../assets/images/tshirt.png";
 import ProductDetails from "../ProductDetails.js";
+import { useProducts } from "../../contexts/ProductsContext";
 
 export default function Products() {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+  const { products } = useProducts();
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  function handleOpen(product) {
+    setSelectedProduct(product);
+    setOpen(true);
+  }
+  function handleClose() {
+    setOpen(false);
+  }
 
   return (
     <Container>
-      <ProductWrapper onClick={handleOpen}>
-        <ImageWrapper>
-          <img src={tshirtImage} alt="product" />
-        </ImageWrapper>
-        <Typography
-          variant="h6"
-          sx={{
-            color: "primary.black",
-            textOverflow: "ellipsis",
-            overflow: "hidden",
-            whiteSpace: "nowrap",
-            marginLeft: "10px",
-          }}
-        >
-          Nome do produto
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          sx={{
-            color: "primary.black",
-            textOverflow: "ellipsis",
-            overflow: "hidden",
-            whiteSpace: "nowrap",
-            marginLeft: "10px",
-          }}
-        >
-          Marca
-        </Typography>
-        <PriceWrapper>R$ 50,00</PriceWrapper>
-      </ProductWrapper>
-      <ProductDetails open={open} handleClose={handleClose} />
+      {products.length > 0 &&
+        products.map((product) => {
+          let formatedPrice = Number(product.price).toFixed(2);
+          formatedPrice = formatedPrice.replace(".", ",");
+          product = { ...product, price: formatedPrice };
+
+          return (
+            <>
+              <ProductWrapper onClick={() => handleOpen(product)}>
+                <ImageWrapper>
+                  <img src={product.image_url} alt="product" />
+                </ImageWrapper>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: "primary.black",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    marginLeft: "10px",
+                  }}
+                >
+                  {product["name"].toUpperCase()}
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    color: "primary.black",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    marginLeft: "10px",
+                  }}
+                >
+                  {product["brand"].toUpperCase()}
+                </Typography>
+                <PriceWrapper>{`R$ ${formatedPrice}`}</PriceWrapper>
+              </ProductWrapper>
+            </>
+          );
+        })}
+      <ProductDetails
+        open={open}
+        handleClose={handleClose}
+        product={selectedProduct}
+      />
     </Container>
   );
 }

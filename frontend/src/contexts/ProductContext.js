@@ -12,6 +12,7 @@ export function ProductProvider({ children }) {
     model: "",
     brand: "",
   });
+
   const contextValue = useMemo(
     () => ({
       productInfo,

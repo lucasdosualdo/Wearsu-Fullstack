@@ -15,6 +15,7 @@ export default function Home() {
         <SortingProducts />
         <Pagination />
         <Products />
+        
       </Container>
     </>
   );

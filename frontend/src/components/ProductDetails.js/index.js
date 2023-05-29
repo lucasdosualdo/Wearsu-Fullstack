@@ -10,10 +10,9 @@ import {
 } from "./style";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import tshirtImage from "../../assets/images/tshirt.png";
 import { useModal } from "../../contexts/ModalsContext";
 
-export default function ProductDetails({ open, handleClose }) {
+export default function ProductDetails({ open, handleClose, product }) {
   const { setOpenCreation } = useModal();
 
   const handleEditClick = () => {
@@ -30,43 +29,31 @@ export default function ProductDetails({ open, handleClose }) {
     >
       <StyledModal>
         <ImageWrapper>
-          <img src={tshirtImage} alt="product" />
+          <img src={product.image_url} alt="product" />
         </ImageWrapper>
 
         <DetailsWrapper>
           <Typography variant="h4" sx={{ textTransform: "uppercase" }}>
-            Nome do produto
+            {product.name}
           </Typography>
           <Typography
             variant="h6"
             gutterBottom
             sx={{ textTransform: "uppercase" }}
           >
-            Marca
+            {product.brand}
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
-            Contrary to popular belief, Lorem Ipsum is not simply random text.
-            It has roots in a piece of classical Latin literature from 45 BC,
-            making it over 2000 years old. Richard McClintock, a Latin professor
-            at Hampden-Sydney College in Virginia, looked up one of the more
-            obscure Latin words, consectetur, from a Lorem Ipsum passage, and
-            going through the cites of the word in classical literature,
-            discovered the undoubtable source. Lorem Ipsum comes from sections
-            1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC. This book is a
-            treatise on the theory of ethics, very popular during the
-            Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
-            amet..", comes from a line in section 1.10.32.
-          </Typography>
-
-          <Typography variant="h6" gutterBottom>
-            Unidades: 15
+            {product.description}
           </Typography>
           <Typography variant="h6" gutterBottom>
-            Modelo: Camiseta
+            {`Unidades: ${product.quantity}`}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            {`Modelo: ${product.model}`}
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
-            Referência: NWXZ294
+            {`Código: ${product.reference}`}
           </Typography>
           <IconsWrapper>
             <EditOutlinedIcon
@@ -80,7 +67,7 @@ export default function ProductDetails({ open, handleClose }) {
             />
           </IconsWrapper>
           <PriceWrapper>
-            <Typography variant="h5">R$ 50,00</Typography>
+            <Typography variant="h5">{`R$ ${product.price}`}</Typography>
           </PriceWrapper>
         </DetailsWrapper>
       </StyledModal>
