@@ -12,16 +12,21 @@ import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useModal } from "../../contexts/ModalsContext";
 import { useProduct } from "../../contexts/ProductContext";
+import { deleteProduct } from "../../services/deleteProductApi";
+import { useAuth } from "../../contexts/AuthContext";
+import { useProducts } from "../../contexts/ProductsContext";
 
 export default function ProductDetails({ open, handleClose, product }) {
+  const { token } = useAuth();
   const { setOpenCreation } = useModal();
   const { productInfo, setProductInfo } = useProduct();
+  const { productsCount, setProductsCount } = useProducts();
+
   let formatedPrice = Number(product?.price).toFixed(2);
   formatedPrice = formatedPrice.replace(".", ",");
 
   const handleEditClick = () => {
     handleClose();
-    console.log(product);
     setProductInfo({
       id: product.id,
       name: product.name,
@@ -33,6 +38,16 @@ export default function ProductDetails({ open, handleClose, product }) {
       brand: product.brand,
     });
     setOpenCreation(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteProduct(product.id, token);
+      setProductsCount(productsCount - 1);
+      handleClose();
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
@@ -79,6 +94,7 @@ export default function ProductDetails({ open, handleClose, product }) {
             <DeleteForeverOutlinedIcon
               fontSize="large"
               sx={{ cursor: "pointer", marginLeft: "10px" }}
+              onClick={handleDelete}
             />
           </IconsWrapper>
           <PriceWrapper>
