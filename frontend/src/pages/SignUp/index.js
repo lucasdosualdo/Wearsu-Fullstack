@@ -12,20 +12,48 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import logo from "../../assets/images/logo.svg";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { postSignUp } from "../../services/signUpApi";
+import { useState } from "react";
+import { Slide, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
+    setLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const body = {
+      name: data.get("name"),
       email: data.get("email"),
       password: data.get("password"),
-    });
-  };
+    };
+    try {
+      await postSignUp(body);
+      setLoading(false);
+
+      toast.success("Cadastro realizado com sucesso!", {
+        progressStyle: {
+          backgroundColor: "var(--turquoise)",
+        },
+      });
+    } catch (error) {
+      console.error(error.message);
+      setLoading(false);
+      toast.error(
+        "Erro ao se cadastrar. Verifique as informações corretamente",
+        {
+          progressStyle: {
+            backgroundColor: "var(--turquoise)",
+          },
+        }
+      );
+    }
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -79,11 +107,23 @@ export default function SignIn() {
                 margin="normal"
                 required
                 fullWidth
+                id="name"
+                label="Nome"
+                name="name"
+                autoComplete="name"
+                autoFocus
+                disabled={loading}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
                 id="email"
                 label="Email"
                 name="email"
                 autoComplete="email"
                 autoFocus
+                disabled={loading}
               />
               <TextField
                 margin="normal"
@@ -94,18 +134,20 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                disabled={loading}
               />
 
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
+                disabled={loading}
                 sx={{
                   mt: 3,
                   mb: 2,
                   backgroundColor: "var(--turquoise)",
                   "&:hover": {
-                    backgroundColor: "var(--turquoise)", // Substitua "var(--desired-color)" pela cor desejada
+                    backgroundColor: "var(--turquoise)",
                   },
                 }}
               >
@@ -123,6 +165,12 @@ export default function SignIn() {
           </Box>
         </Grid>
       </Grid>
+      <ToastContainer
+        transition={Slide}
+        autoClose={1500}
+        bodyClassName="toast-body"
+        icon={false}
+      />
     </ThemeProvider>
   );
 }

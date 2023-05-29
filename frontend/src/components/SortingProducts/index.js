@@ -77,8 +77,6 @@ export default function SortingProducts() {
               >
                 <MenuItem value={"Nome (A-Z)"}>Nome (A-Z)</MenuItem>
                 <MenuItem value={"Nome (Z-A)"}>Nome (Z-A)</MenuItem>
-                <MenuItem value={"Mais recentes"}>Mais recentes</MenuItem>
-                <MenuItem value={"Mais antigos"}>Mais antigos</MenuItem>
                 <MenuItem value={"Preço (mais baratos)"}>Preço (mais baratos)</MenuItem>
                 <MenuItem value={"Preço (mais caros)"}>Preço (mais caros)</MenuItem>
               </Select>
