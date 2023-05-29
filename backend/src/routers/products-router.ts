@@ -3,6 +3,7 @@ import {
   getProducts,
   getProductsByModel,
   updateProduct,
+  deleteProduct,
 } from "@/controllers/products-controller";
 import { validateBody } from "@/middlewares/validation-middleware";
 import { createProductSchema } from "@/schemas/product-schema";
@@ -16,6 +17,7 @@ productsRouter
   .post("/create", validateBody(createProductSchema), postProduct)
   .get("/", getProducts)
   .get("/:model", getProductsByModel)
-  .put("/update/:productId", updateProduct);
+  .put("/update/:productId", validateBody(createProductSchema), updateProduct)
+  .delete("/delete/:productId", deleteProduct);
 
 export { productsRouter };

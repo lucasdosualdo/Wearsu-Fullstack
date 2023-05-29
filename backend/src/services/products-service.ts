@@ -1,4 +1,5 @@
 import { badRequestError } from "@/errors/bad-request-error";
+import { deleteProductError } from "@/errors/delete-product-error";
 import {
   CreateProductParams,
   InputProductParams,
@@ -40,7 +41,21 @@ async function updateProduct(
     );
     return product;
   } catch (error) {
-    throw new Error("Error on product creation: " + error.message);
+    throw new Error("Error on product update: " + error.message);
+  }
+}
+
+async function deleteProduct(productId: number) {
+  try {
+    const deletedProduct: products = await productsRepository.deleteProduct(
+      productId
+    );
+    if (!deletedProduct) {
+      throw deleteProductError();
+    }
+    return deletedProduct;
+  } catch (error) {
+    throw new Error("Error on product deletion: " + error.message);
   }
 }
 
@@ -101,6 +116,7 @@ const productsService = {
   getProducts,
   getProductsByModel,
   updateProduct,
+  deleteProduct
 };
 
 export default productsService;
