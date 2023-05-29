@@ -1,16 +1,20 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { AuthenticatedRequest } from "@/middlewares/authentication-middleware";
 import httpStatus from "http-status";
-import { CreateProductParams, InputProductParams } from "@/protocols";
+import {
+  CreateProductParams,
+  GetProductsParams,
+  InputProductParams,
+} from "@/protocols";
 import productsService from "@/services/products-service";
-import { products } from "@prisma/client";
 
-export async function postProduct(req: Request, res: Response) {
+export async function postProduct(req: AuthenticatedRequest, res: Response) {
   const productBody: InputProductParams = req.body;
-
+  const { userId } = req;
   try {
     const product: CreateProductParams = await productsService.createProduct(
-      productBody
+      productBody,
+      userId
     );
 
     return res.status(httpStatus.CREATED).send(product);
@@ -22,7 +26,9 @@ export async function postProduct(req: Request, res: Response) {
 export async function getProducts(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
   try {
-    const products: products[] = await productsService.getProducts(userId);
+    const products: GetProductsParams = await productsService.getProducts(
+      userId
+    );
     return res.status(httpStatus.OK).send(products);
   } catch (error) {
     if (error.name === "BadRequestError") {

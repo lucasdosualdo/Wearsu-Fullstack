@@ -7,8 +7,8 @@ import { authenticateToken } from "@/middlewares/authentication-middleware";
 const productsRouter = Router();
 
 productsRouter
-  .post("/create", validateBody(createProductSchema), postProduct)
   .all("/*", authenticateToken)
+  .post("/create", validateBody(createProductSchema), postProduct)
   .get("/", getProducts);
 
 export { productsRouter };

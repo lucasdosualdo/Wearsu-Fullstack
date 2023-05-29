@@ -24,10 +24,19 @@ async function getAll(userId: number): Promise<products[]> {
   });
 }
 
+async function count(userId: number): Promise<number> {
+  return prisma.products.count({
+    where: {
+      user_id: userId,
+    },
+  });
+}
+
 const productsRepository = {
   create,
   checkReference,
   getAll,
+  count,
 };
 
 export default productsRepository;
