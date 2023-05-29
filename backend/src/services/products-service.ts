@@ -51,13 +51,35 @@ async function getProducts(userId: number): Promise<GetProductsParams> {
   return { totalProducts, products };
 }
 
-async function getProductsNumber(userId: number): Promise<number> {
+async function getProductsByModel(
+  userId: number,
+  model: string
+): Promise<GetProductsParams> {
+  if (!userId || !model) {
+    throw badRequestError();
+  }
+  const totalProducts: number = await getProductsNumber(userId, model);
+  const products: products[] = await productsRepository.getByModel(
+    userId,
+    model
+  );
+  return { totalProducts, products };
+}
+
+async function getProductsNumber(
+  userId: number,
+  model?: string
+): Promise<number> {
+  if (model) {
+    return productsRepository.countByModel(userId, model);
+  }
   return productsRepository.count(userId);
 }
 
 const productsService = {
   createProduct,
   getProducts,
+  getProductsByModel,
 };
 
 export default productsService;

@@ -37,3 +37,21 @@ export async function getProducts(req: AuthenticatedRequest, res: Response) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
   }
 }
+
+export async function getProductsByModel(
+  req: AuthenticatedRequest,
+  res: Response
+) {
+  const { userId } = req;
+  const model: string = req.params.model;
+  try {
+    const products: GetProductsParams =
+      await productsService.getProductsByModel(userId, model);
+    return res.status(httpStatus.OK).send(products);
+  } catch (error) {
+    if (error.name === "BadRequestError") {
+      return res.status(httpStatus.BAD_REQUEST).send(error);
+    }
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
+  }
+}

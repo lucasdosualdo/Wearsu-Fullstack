@@ -31,12 +31,31 @@ async function count(userId: number): Promise<number> {
     },
   });
 }
+async function countByModel(userId: number, model: string): Promise<number> {
+  return prisma.products.count({
+    where: {
+      user_id: userId,
+      model,
+    },
+  });
+}
+
+async function getByModel(userId: number, model: string): Promise<products[]> {
+  return prisma.products.findMany({
+    where: {
+      user_id: userId,
+      model,
+    },
+  });
+}
 
 const productsRepository = {
   create,
   checkReference,
   getAll,
   count,
+  getByModel,
+  countByModel,
 };
 
 export default productsRepository;
