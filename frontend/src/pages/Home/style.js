@@ -5,3 +5,10 @@ export const Container = styled("div")({
   paddingLeft: "20px",
   paddingRight: "20px",
 });
+
+export const ProductsManagersWrapper = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: "50px",
+});

@@ -11,7 +11,8 @@ export const HeaderBar = styled("div")({
   alignItems: "center",
   justifyContent: "space-between",
   padding: "0 20px",
-  zIndex: "1"
+  zIndex: "1",
+  boxShadow: "0px 10px 100px rgba(0, 0, 0, 0.6)",
 });
 
 export const Search = styled("div")(({ theme }) => ({
