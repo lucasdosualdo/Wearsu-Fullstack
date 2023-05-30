@@ -75,5 +75,4 @@ const Container = styled("div")({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: "20px 0",
-  position: "relative",
 });

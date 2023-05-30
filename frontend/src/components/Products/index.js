@@ -61,6 +61,17 @@ export default function Products() {
             </>
           );
         })}
+      {products.length === 0 && (
+        <Typography
+          variant="subtitle1"
+          sx={{
+            color: "primary.lightgray",
+            marginLeft: "10px",
+          }}
+        >
+          Você ainda não possui nenhum produto adicionado.
+        </Typography>
+      )}
       <ProductDetails
         open={open}
         handleClose={handleClose}

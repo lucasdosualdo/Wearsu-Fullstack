@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 import { users } from "@prisma/client";
-import { SignUpParams, CreatedUser } from "@/protocols";
-import { invalidSignUpError } from "@/errors/invalid-signup-error";
-import signUpRepository from "@/repositories/sign-up-repository";
+import { SignUpParams, CreatedUser } from "../protocols";
+import { invalidSignUpError } from "../errors/invalid-signup-error";
+import signUpRepository from "../repositories/sign-up-repository";
 
 async function createUser({
   name,

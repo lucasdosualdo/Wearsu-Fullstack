@@ -89,7 +89,7 @@ export default function ProductCreationModal({ creation, setCreation }) {
     } catch (error) {
       setLoading(false);
       console.log(error.message);
-      toast.error("Falha ao adicionar o produto.", {
+      toast.error("Falha ao adicionar o produto. Verifique se as informações estão corretas.", {
         progressStyle: {
           backgroundColor: "var(--turquoise)",
         },

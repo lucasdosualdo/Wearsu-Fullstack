@@ -1,4 +1,4 @@
-import { SignUpParams } from "@/protocols";
+import { SignUpParams } from "../protocols";
 
 import Joi from "joi";
 

@@ -53,3 +53,10 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+export const Wrapper = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: "8vw",
+});

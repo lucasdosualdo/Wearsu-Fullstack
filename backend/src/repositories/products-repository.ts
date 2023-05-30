@@ -1,6 +1,6 @@
 import { products } from "@prisma/client";
-import prisma from "@/config/database";
-import { CreateProductParams, PaginationParams } from "@/protocols";
+import prisma from "../config/database";
+import { CreateProductParams, PaginationParams } from "../protocols";
 
 async function create(data: CreateProductParams): Promise<products> {
   return prisma.products.create({

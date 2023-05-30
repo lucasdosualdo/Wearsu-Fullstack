@@ -74,12 +74,12 @@ export default function SignIn() {
             width: "100%",
             img: {
               width: "60%",
-              cursor: "pointer",
+
               objectFit: "cover",
             },
           }}
         >
-          <img src={logo} alt="logo" onClick={() => navigate("/")} />
+          <img src={logo} alt="logo" />
         </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box

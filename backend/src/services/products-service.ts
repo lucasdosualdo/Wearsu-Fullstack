@@ -1,12 +1,12 @@
-import { badRequestError } from "@/errors/bad-request-error";
-import { deleteProductError } from "@/errors/delete-product-error";
+import { badRequestError } from "../errors/bad-request-error";
+import { deleteProductError } from "../errors/delete-product-error";
 import {
   CreateProductParams,
   InputProductParams,
   GetProductsParams,
   PaginationParams,
-} from "@/protocols";
-import productsRepository from "@/repositories/products-repository";
+} from "../protocols";
+import productsRepository from "../repositories/products-repository";
 import { products } from "@prisma/client";
 
 async function createProduct(

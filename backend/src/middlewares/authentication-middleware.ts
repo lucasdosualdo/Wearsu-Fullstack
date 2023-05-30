@@ -1,8 +1,8 @@
-import prisma from "@/config/database";
+import prisma from "../config/database";
 import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
-import { unauthorizedError } from "@/errors/unauthorized-error";
+import { unauthorizedError } from "../errors/unauthorized-error";
 
 export async function authenticateToken(
   req: AuthenticatedRequest,

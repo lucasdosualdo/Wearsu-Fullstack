@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { SignInParams, UserSessionParams } from "@/protocols";
+import { SignInParams, UserSessionParams } from "../protocols";
 import { sessions, users } from "@prisma/client";
-import signInRepository from "@/repositories/sign-in-repository";
-import { invalidCredentialsError } from "@/errors/invalid-credentials-error";
-import { cannotCreateSessionError } from "@/errors/cannot-create-session-error";
+import signInRepository from "../repositories/sign-in-repository";
+import { invalidCredentialsError } from "../errors/invalid-credentials-error";
+import { cannotCreateSessionError } from "../errors/cannot-create-session-error";
 
 async function signIn({
   email,

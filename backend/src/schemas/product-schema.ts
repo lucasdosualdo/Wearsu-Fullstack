@@ -1,4 +1,4 @@
-import { CreateProductParams } from "@/protocols";
+import { CreateProductParams } from "../protocols";
 
 import Joi from "joi";
 

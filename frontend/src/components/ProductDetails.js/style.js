@@ -6,7 +6,8 @@ export const StyledModal = styled("div")({
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "60vw",
-  maxHeight: "70vh",
+  minHeight: "45vh",
+  maxHeight: "80vh",
   bgcolor: "var(--white)",
   display: "flex",
   boxShadow: 24,
@@ -19,7 +20,6 @@ export const StyledModal = styled("div")({
 
 export const ImageWrapper = styled("div")({
   width: "40%",
-  height: "100%",
   backgroundColor: "var(--turquoise)",
   display: "flex",
   alignItems: "center",

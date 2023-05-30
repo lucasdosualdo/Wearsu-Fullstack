@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useMemo } from "react";
 const PaginationContext = createContext();
 
 export function PaginationProvider({ children }) {
-  const pageSize = 12;
+  const pageSize = 6;
   const [pagination, setPagination] = useState({
     count: 0,
     from: 0,

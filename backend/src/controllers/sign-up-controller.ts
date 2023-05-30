@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import { SignUpParams, CreatedUser } from "@/protocols";
-import signUpService from "@/services/sign-up-service";
+import { SignUpParams, CreatedUser } from "../protocols";
+import signUpService from "../services/sign-up-service";
 
 export async function postSignUp(req: Request, res: Response) {
   const { name, email, password }: SignUpParams = req.body;

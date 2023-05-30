@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import cors from "cors";
-import { productsRouter, signUpRouter, signInRouter } from "@/routers";
+import { productsRouter, signUpRouter, signInRouter } from "./routers";
 
 const app = express();
 app

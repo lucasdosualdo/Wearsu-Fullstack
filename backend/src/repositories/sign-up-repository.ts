@@ -1,5 +1,5 @@
-import prisma from "@/config/database";
-import { SignUpParams } from "@/protocols";
+import prisma from "../config/database";
+import { SignUpParams } from "../protocols";
 import { users } from "@prisma/client";
 
 async function findByEmail(email: string): Promise<users> {

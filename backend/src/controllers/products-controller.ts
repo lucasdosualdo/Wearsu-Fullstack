@@ -1,13 +1,13 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "@/middlewares/authentication-middleware";
+import { AuthenticatedRequest } from "../middlewares/authentication-middleware";
 import httpStatus from "http-status";
 import {
   CreateProductParams,
   GetProductsParams,
   InputProductParams,
   PaginationParams,
-} from "@/protocols";
-import productsService from "@/services/products-service";
+} from "../protocols";
+import productsService from "../services/products-service";
 import { products } from "@prisma/client";
 
 export async function postProduct(req: AuthenticatedRequest, res: Response) {
