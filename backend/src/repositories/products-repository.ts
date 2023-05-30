@@ -1,13 +1,16 @@
 import { products } from "@prisma/client";
 import prisma from "@/config/database";
-import { CreateProductParams } from "@/protocols";
+import { CreateProductParams, PaginationParams } from "@/protocols";
 
 async function create(data: CreateProductParams): Promise<products> {
   return prisma.products.create({
     data,
   });
 }
-async function update(data: CreateProductParams, productId: number): Promise<products> {
+async function update(
+  data: CreateProductParams,
+  productId: number
+): Promise<products> {
   return prisma.products.update({
     where: {
       id: productId,
@@ -17,11 +20,11 @@ async function update(data: CreateProductParams, productId: number): Promise<pro
 }
 
 async function deleteProduct(productId: number): Promise<products> {
-return prisma.products.delete({
-  where: {
-    id: productId,
-  }
-})
+  return prisma.products.delete({
+    where: {
+      id: productId,
+    },
+  });
 }
 
 async function checkReference(reference: string): Promise<products | null> {
@@ -32,11 +35,16 @@ async function checkReference(reference: string): Promise<products | null> {
   });
 }
 
-async function getAll(userId: number): Promise<products[]> {
+async function getAll(
+  userId: number,
+  paginationIndexes: PaginationParams
+): Promise<products[]> {
   return prisma.products.findMany({
     where: {
       user_id: userId,
     },
+    skip: paginationIndexes.from,
+    take: paginationIndexes.to,
   });
 }
 
@@ -56,13 +64,16 @@ async function countByModel(userId: number, model: string): Promise<number> {
   });
 }
 
-async function getByModel(userId: number, model: string): Promise<products[]> {
-  return prisma.products.findMany({
+async function pagination(userId: number, from: number, to: number) {
+  const products = await prisma.products.findMany({
     where: {
       user_id: userId,
-      model,
     },
+    skip: from,
+    take: to,
   });
+
+  return products;
 }
 
 const productsRepository = {
@@ -70,10 +81,10 @@ const productsRepository = {
   checkReference,
   getAll,
   count,
-  getByModel,
   countByModel,
   update,
-  deleteProduct
+  deleteProduct,
+  pagination,
 };
 
 export default productsRepository;

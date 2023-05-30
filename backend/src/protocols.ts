@@ -25,3 +25,8 @@ export type GetProductsParams = {
   totalProducts: number;
   products: products[];
 };
+
+export type PaginationParams = {
+  from: number;
+  to: number;
+};

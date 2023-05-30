@@ -4,6 +4,7 @@ import {
   CreateProductParams,
   InputProductParams,
   GetProductsParams,
+  PaginationParams,
 } from "@/protocols";
 import productsRepository from "@/repositories/products-repository";
 import { products } from "@prisma/client";
@@ -77,26 +78,17 @@ async function generateRandomReference(length: number): Promise<string> {
   return reference;
 }
 
-async function getProducts(userId: number): Promise<GetProductsParams> {
-  if (!userId) {
+async function getProducts(
+  userId: number,
+  paginationIndexes: PaginationParams
+): Promise<GetProductsParams> {
+  if (!userId || !paginationIndexes) {
     throw badRequestError();
   }
   const totalProducts: number = await getProductsNumber(userId);
-  const products: products[] = await productsRepository.getAll(userId);
-  return { totalProducts, products };
-}
-
-async function getProductsByModel(
-  userId: number,
-  model: string
-): Promise<GetProductsParams> {
-  if (!userId || !model) {
-    throw badRequestError();
-  }
-  const totalProducts: number = await getProductsNumber(userId, model);
-  const products: products[] = await productsRepository.getByModel(
+  const products: products[] = await productsRepository.getAll(
     userId,
-    model
+    paginationIndexes
   );
   return { totalProducts, products };
 }
@@ -114,9 +106,8 @@ async function getProductsNumber(
 const productsService = {
   createProduct,
   getProducts,
-  getProductsByModel,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 };
 
 export default productsService;

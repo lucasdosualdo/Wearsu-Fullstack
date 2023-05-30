@@ -1,7 +1,6 @@
 import {
   postProduct,
   getProducts,
-  getProductsByModel,
   updateProduct,
   deleteProduct,
 } from "@/controllers/products-controller";
@@ -16,7 +15,6 @@ productsRouter
   .all("/*", authenticateToken)
   .post("/create", validateBody(createProductSchema), postProduct)
   .get("/", getProducts)
-  .get("/:model", getProductsByModel)
   .put("/update/:productId", validateBody(createProductSchema), updateProduct)
   .delete("/delete/:productId", deleteProduct);
 

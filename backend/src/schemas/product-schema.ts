@@ -9,6 +9,6 @@ export const createProductSchema = Joi.object<CreateProductParams>({
   quantity: Joi.number().integer().required(),
   model: Joi.string().required(),
   brand: Joi.string().required(),
-  image_url: Joi.string().required(),
+  image_url: Joi.string().uri().required(),
   user_id: Joi.number().integer().required(),
 });

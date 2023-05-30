@@ -5,6 +5,7 @@ import {
   CreateProductParams,
   GetProductsParams,
   InputProductParams,
+  PaginationParams,
 } from "@/protocols";
 import productsService from "@/services/products-service";
 import { products } from "@prisma/client";
@@ -12,6 +13,7 @@ import { products } from "@prisma/client";
 export async function postProduct(req: AuthenticatedRequest, res: Response) {
   const productBody: InputProductParams = req.body;
   const { userId } = req;
+
   try {
     const product: CreateProductParams = await productsService.createProduct(
       productBody,
@@ -64,28 +66,17 @@ export async function deleteProduct(req: AuthenticatedRequest, res: Response) {
 
 export async function getProducts(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
+  const from: number = Number(req.query.from);
+  const to: number = Number(req.query.to);
+  const paginationIndexes: PaginationParams = {
+    from,
+    to,
+  };
   try {
     const products: GetProductsParams = await productsService.getProducts(
-      userId
+      userId,
+      paginationIndexes
     );
-    return res.status(httpStatus.OK).send(products);
-  } catch (error) {
-    if (error.name === "BadRequestError") {
-      return res.status(httpStatus.BAD_REQUEST).send(error);
-    }
-    return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
-  }
-}
-
-export async function getProductsByModel(
-  req: AuthenticatedRequest,
-  res: Response
-) {
-  const { userId } = req;
-  const model: string = req.params.model;
-  try {
-    const products: GetProductsParams =
-      await productsService.getProductsByModel(userId, model);
     return res.status(httpStatus.OK).send(products);
   } catch (error) {
     if (error.name === "BadRequestError") {
