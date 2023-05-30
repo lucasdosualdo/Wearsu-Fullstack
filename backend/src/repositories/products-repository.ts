@@ -40,11 +40,11 @@ async function getAll(
   paginationIndexes: PaginationParams
 ): Promise<products[]> {
   return prisma.products.findMany({
+    skip: paginationIndexes.from,
+    take: paginationIndexes.to,
     where: {
       user_id: userId,
     },
-    skip: paginationIndexes.from,
-    take: paginationIndexes.to,
   });
 }
 
