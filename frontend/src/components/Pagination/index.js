@@ -17,7 +17,9 @@ export default function BasicPagination() {
     async function fetchProducts() {
       setLoading(true);
       try {
+        console.log(pagination);
         const promise = await getProducts(token, pagination);
+        console.log(promise);
         setPagination({ ...pagination, count: promise.totalProducts });
         setProducts(promise.products);
 
@@ -36,7 +38,7 @@ export default function BasicPagination() {
 
   function handlePageChange(event, page) {
     const from = (page - 1) * pageSize;
-    const to = (page - 1) * pageSize + pageSize;
+    const to = pageSize;
     setPagination({ ...pagination, from, to });
   }
   return (
