@@ -15,11 +15,13 @@ import { useProduct } from "../../contexts/ProductContext";
 import { deleteProduct } from "../../services/deleteProductApi";
 import { useAuth } from "../../contexts/AuthContext";
 import { useProducts } from "../../contexts/ProductsContext";
+import { Slide, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductDetails({ open, handleClose, product }) {
   const { token } = useAuth();
   const { setOpenCreation } = useModal();
-  const { productInfo, setProductInfo } = useProduct();
+  const { setProductInfo } = useProduct();
   const { productsCount, setProductsCount } = useProducts();
 
   let formatedPrice = Number(product?.price).toFixed(2);
@@ -47,61 +49,74 @@ export default function ProductDetails({ open, handleClose, product }) {
       handleClose();
     } catch (error) {
       console.error(error.message);
+      toast.error("Falha ao excluir o produto.", {
+        progressStyle: {
+          backgroundColor: "var(--turquoise)",
+        },
+      });
     }
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <StyledModal>
-        <ImageWrapper>
-          <img src={product?.image_url} alt="product" />
-        </ImageWrapper>
+    <>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <StyledModal>
+          <ImageWrapper>
+            <img src={product?.image_url} alt="product" />
+          </ImageWrapper>
 
-        <DetailsWrapper>
-          <Typography variant="h4" sx={{ textTransform: "uppercase" }}>
-            {product?.name}
-          </Typography>
-          <Typography
-            variant="h6"
-            gutterBottom
-            sx={{ textTransform: "uppercase" }}
-          >
-            {product?.brand}
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            {product?.description}
-          </Typography>
-          <Typography variant="h6" gutterBottom>
-            {`Unidades: ${product?.quantity}`}
-          </Typography>
-          <Typography variant="h6" gutterBottom>
-            {`Modelo: ${product?.model}`}
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            {`Código: ${product?.reference}`}
-          </Typography>
-          <IconsWrapper>
-            <EditOutlinedIcon
-              fontSize="large"
-              onClick={handleEditClick}
-              sx={{ cursor: "pointer" }}
-            />
-            <DeleteForeverOutlinedIcon
-              fontSize="large"
-              sx={{ cursor: "pointer", marginLeft: "10px" }}
-              onClick={handleDelete}
-            />
-          </IconsWrapper>
-          <PriceWrapper>
-            <Typography variant="h5">{`R$ ${formatedPrice}`}</Typography>
-          </PriceWrapper>
-        </DetailsWrapper>
-      </StyledModal>
-    </Modal>
+          <DetailsWrapper>
+            <Typography variant="h4" sx={{ textTransform: "uppercase" }}>
+              {product?.name}
+            </Typography>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ textTransform: "uppercase" }}
+            >
+              {product?.brand}
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              {product?.description}
+            </Typography>
+            <Typography variant="h6" gutterBottom>
+              {`Unidades: ${product?.quantity}`}
+            </Typography>
+            <Typography variant="h6" gutterBottom>
+              {`Modelo: ${product?.model}`}
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              {`Código: ${product?.reference}`}
+            </Typography>
+            <IconsWrapper>
+              <EditOutlinedIcon
+                fontSize="large"
+                onClick={handleEditClick}
+                sx={{ cursor: "pointer" }}
+              />
+              <DeleteForeverOutlinedIcon
+                fontSize="large"
+                sx={{ cursor: "pointer", marginLeft: "10px" }}
+                onClick={handleDelete}
+              />
+            </IconsWrapper>
+            <PriceWrapper>
+              <Typography variant="h5">{`R$ ${formatedPrice}`}</Typography>
+            </PriceWrapper>
+          </DetailsWrapper>
+        </StyledModal>
+      </Modal>
+      <ToastContainer
+        transition={Slide}
+        autoClose={1500}
+        bodyClassName="toast-body"
+        icon={false}
+      />
+    </>
   );
 }

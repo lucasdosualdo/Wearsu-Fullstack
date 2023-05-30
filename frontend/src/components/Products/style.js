@@ -6,6 +6,8 @@ export const Container = styled("div")({
   display: "flex",
   flexWrap: "wrap",
   gap: "50px",
+  position: "relative",
+  paddingBottom: "8vh",
 });
 
 export const ProductWrapper = styled("div")({

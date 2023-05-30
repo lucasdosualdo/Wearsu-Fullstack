@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Pagination, Stack } from "@mui/material";
+import { Pagination, Stack, CircularProgress } from "@mui/material";
 import styled from "@emotion/styled";
 import { usePagination } from "../../contexts/PaginationContext";
 import { getProducts } from "../../services/getProductsApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useProducts } from "../../contexts/ProductsContext";
 
@@ -11,9 +11,11 @@ export default function BasicPagination() {
   const { pageSize, pagination, setPagination } = usePagination();
   const { token } = useAuth();
   const { setProducts, productsCount, setProductsCount } = useProducts();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchProducts() {
+      setLoading(true);
       try {
         const promise = await getProducts(token, pagination);
         setPagination({ ...pagination, count: promise.totalProducts });
@@ -22,8 +24,10 @@ export default function BasicPagination() {
         if (productsCount !== promise.totalProducts) {
           setProductsCount(promise.totalProducts);
         }
+        setLoading(false);
       } catch (error) {
         console.error(error.message);
+        setLoading(false);
       }
     }
 
@@ -37,6 +41,18 @@ export default function BasicPagination() {
   }
   return (
     <Container>
+      {loading && (
+        <CircularProgress
+          size={80}
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            zIndex: "1",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      )}
       <Stack spacing={2}>
         <Pagination
           count={Math.ceil(pagination.count / pageSize)}
@@ -59,4 +75,5 @@ const Container = styled("div")({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: "20px 0",
+  position: "relative",
 });
